@@ -1,0 +1,34 @@
+<?php
+   $items = $this->model->getCollection()->getData();
+?>
+<h3>Sinh viên</h3>
+<a class="action primary" href="<?php echo $block->getUrl('learning/index/insert'); ?>" >Thêm sinh viên</a>
+<table>
+    <tr>
+        <th>#</th>
+        <th>Họ tên</th>
+        <th>Lớp</th>
+        <th>Giới tính</th>
+        <th>Địa chỉ</th>
+        <th>Thành tích học tập</th>
+    </tr>
+    <?php foreach($items as $key => $item): ?>
+        <?php 
+            $sex = ($item['sex'] == 1) ? 'Nam' : 'Nữ';
+            $nation = (empty($item['nation'])) ? 'Chưa cập nhật' : $item['nation'];
+            $archive = (empty($item['archive'])) ? 'Chưa cập nhật' : $item['archive'];
+        ?>
+        <tr>
+                <td><?php echo $key + 1 ?></td>
+                <td><?php echo $item['fullname'] ?></td>
+                <td><?php echo $item['class'] ?></td>
+                <td><?php echo $sex ?></td>
+                <td><?php echo $nation ?></td>
+                <td><?php echo $archive ?></td>
+                <td>
+                    <a href="<?php echo $block->getUrl('learning/index/edit').'id/'.$item['id']; ?>" class="action primary">Edit</a>
+                    <a href="<?php echo $block->getUrl('learning/index/delete').'?id='.$item['id']; ?>" class="action primary">Delete</a>
+                </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
